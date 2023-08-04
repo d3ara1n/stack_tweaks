@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"dotnet.defaultSolution": "stack_tweaks.sln",
+		"cSpell.words": [
+			"Stacklands"
+		]
+	}
+}

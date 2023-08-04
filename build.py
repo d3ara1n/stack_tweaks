@@ -12,7 +12,7 @@ COPY_FILES = ["manifest.json", "localization.tsv"] # individual files to copy, s
 MODS_ROOT = Path(os.environ["userprofile"]) / Path("AppData/LocalLow/sokpop/Stacklands/Mods") # windows only, can be hardcoded with the below line instead
 # MODS_ROOT = Path("C:/Users/cyber/AppData/LocalLow/sokpop/Stacklands/Mods").resolve()
 
-MOD_BIN = Path("./bin/Debug/netstandard2.1").resolve()
+MOD_BIN = Path("./src/bin/Debug/netstandard2.1").resolve()
 
 
 def sync_folder(src: Path, dst: Path):
@@ -33,7 +33,7 @@ def sync_folder(src: Path, dst: Path):
 
 # build
 start_time = time.time()
-p = subprocess.Popen("dotnet build", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+p = subprocess.Popen("dotnet build stack_tweaks.sln", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 stdout, stderr = p.communicate()
 if p.returncode != 0:
     print(stdout.decode())
@@ -41,12 +41,12 @@ if p.returncode != 0:
 print(f"built in {time.time() - start_time:.2f}s")
 
 # grab metadata
-found_csprojs = list(Path(".").glob("*.csproj"))
+found_csprojs = list(Path("./src").glob("*.csproj"))
 if len(found_csprojs) != 1:
     raise RuntimeError("Can't find .csproj file")
 with open(found_csprojs[0], encoding="utf-8") as f:
     root = ET.parse(f).getroot()
-    MOD_ID = json.load(open("manifest.json"))["id"]
+    MOD_ID = json.load(open("./src/manifest.json"))["id"]
     DLL_NAME = f"{root.find('./PropertyGroup/AssemblyName').text}.dll"
     MOD_DLL = MOD_BIN / DLL_NAME
     MOD_PATH = MODS_ROOT / MOD_ID
@@ -58,7 +58,7 @@ shutil.copyfile(MOD_DLL, MOD_PATH / f"{DLL_NAME}")
 # copy files
 for file in COPY_FILES:
     try:
-        shutil.copyfile(file, MOD_PATH / file)
+        shutil.copyfile(f"./src/{file}", MOD_PATH / file)
     except FileNotFoundError:
         print(f"No such file: '{file}'")
 
