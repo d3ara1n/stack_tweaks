@@ -12,7 +12,7 @@ Some tweaks make Stacklands automation easier.
 
 ## GameModLoader.LoadModBlueprint() bug fix
 
-Original method does not apply Subprint.CardsToRemove, instead, it's picked from Subprint.RequiredCards as its final value.
+Original method does not apply `Subprint.CardsToRemove`, instead, it's picked from `Subprint.RequiredCards` as its final value.
 
 ## To implement
 

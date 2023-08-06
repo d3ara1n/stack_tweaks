@@ -57,10 +57,9 @@ class InjectedPatches
         {
             for (int i = 0; i < original.Subprints.Count; i++)
             {
-                var cards = mp.Subprints[i].CardsToRemove
-                    .Split(",")
-                    .Select(x => x.Trim())
-                    .ToArray();
+                var cards =
+                    mp.Subprints[i].CardsToRemove?.Split(",").Select(x => x.Trim()).ToArray()
+                    ?? new string[] { };
                 original.Subprints[i].CardsToRemove = cards;
             }
         }
