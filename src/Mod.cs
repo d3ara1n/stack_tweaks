@@ -8,21 +8,18 @@ namespace StackTweaksNS
 {
     public class StackTweaks : Mod
     {
-        public override void Ready()
-        {
-            PatchMarket();
-            Logger.Log("Stack Tweaks Ready!");
+        public void Awake(){
+            Harmony.PatchAll();
         }
 
-        void PatchMarket()
+        public override void Ready()
         {
-            Harmony.Patch(typeof(Market).GetMethod("UpdateCard", BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance), new HarmonyMethod(typeof(InjectedPatches), nameof(InjectedPatches.MarketUpdateCardPatch)));
+            Logger.Log("Stack Tweaks Ready!");
         }
 
         public override object Call(object[] args)
         {
             return base.Call(args);
         }
-
     }
 }
