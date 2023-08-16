@@ -49,20 +49,20 @@ class InjectedPatches
         return false;
     }
 
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(GameDataLoader), nameof(GameDataLoader.LoadModBlueprint))]
-    internal static CardData LoadModBlueprintPatch(CardData passthrough, ModBlueprint mp, Mod mod)
-    {
-        if (passthrough is Blueprint original)
-        {
-            for (int i = 0; i < original.Subprints.Count; i++)
-            {
-                var cards =
-                    mp.Subprints[i].CardsToRemove?.Split(",").Select(x => x.Trim()).ToArray()
-                    ?? new string[] { };
-                original.Subprints[i].CardsToRemove = cards;
-            }
-        }
-        return passthrough;
-    }
+    // [HarmonyPostfix]
+    // [HarmonyPatch(typeof(GameDataLoader), nameof(GameDataLoader.LoadModBlueprint))]
+    // internal static CardData LoadModBlueprintPatch(CardData passthrough, ModBlueprint mp, Mod mod)
+    // {
+    //     if (passthrough is Blueprint original)
+    //     {
+    //         for (int i = 0; i < original.Subprints.Count; i++)
+    //         {
+    //             var cards =
+    //                 mp.Subprints[i].CardsToRemove?.Split(",").Select(x => x.Trim()).ToArray()
+    //                 ?? new string[] { };
+    //             original.Subprints[i].CardsToRemove = cards;
+    //         }
+    //     }
+    //     return passthrough;
+    // }
 }

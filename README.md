@@ -10,7 +10,7 @@ Some tweaks make Stacklands automation easier.
 
 **NOTE** `Market` card can't sell itself anymore.
 
-## GameModLoader.LoadModBlueprint() bug fix
+## GameModLoader.LoadModBlueprint() bug fix(Officially fixed in recent update, removed)
 
 Original method does not apply `Subprint.CardsToRemove`, instead, it's picked from `Subprint.RequiredCards` as its final value.
 
